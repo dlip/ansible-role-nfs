@@ -1,4 +1,15 @@
 ---
+
+- name: Copy config file.
+  template:
+    src: nfs.j2
+    dest: /etc/sysconfig/nfs
+    owner: root
+    group: root
+    mode: 0644
+  notify: 
+   - restart nfs
+
 - name: Ensure rpcbind and nfs are running.
   service: "name={{ item }} state=started enabled=yes"
   with_items:

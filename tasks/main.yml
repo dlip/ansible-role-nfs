@@ -1,22 +1,8 @@
 ---
-# Setup/install tasks.
-- include: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- include: install.yml
+  when: skip_install is not defined or skip_install != "true"
+  tags: install
 
-- include: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
-
-- name: Copy exports file.
-  template:
-    src: exports.j2
-    dest: /etc/exports
-    owner: root
-    group: root
-    mode: 0644
-
-# Configuration tasks.
-- include: configure-RedHat.yml
-  when: ansible_os_family == 'RedHat'
-
-- include: configure-Debian.yml
-  when: ansible_os_family == 'Debian'
+- include: config.yml
+  when: skip_config is not defined or skip_config != "true"
+  tags: config
