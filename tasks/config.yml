@@ -9,6 +9,10 @@
   notify: 
    - restart nfs
 
+- name: Create directories
+  file: path={{item.path}} state=directory mode="777"
+  with_items: nfs_exports
+
 # Configuration tasks.
 - include: configure-RedHat.yml
   when: ansible_os_family == 'RedHat'
