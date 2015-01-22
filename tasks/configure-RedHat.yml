@@ -16,3 +16,5 @@
     - rpcbind
     - nfs
   when: nfs_exports
+  # needed for false errors being thrown
+  ignore_errors: True
